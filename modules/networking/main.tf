@@ -41,7 +41,7 @@ resource "azurerm_network_security_group" "nsg" {
 
 # Associating the NSG with the webapp subnet
 resource "azurerm_subnet_network_security_group_association" "nsg_subnet_assoc" {
-  subnet_id                 = azurerm_subnet.webapp_subnet.id       # ID of the webapp subnet
+  subnet_id                 = azurerm_subnet.web_app_subnet.id       # ID of the webapp subnet
   network_security_group_id = azurerm_network_security_group.nsg.id # ID of the created NSG
 }
 

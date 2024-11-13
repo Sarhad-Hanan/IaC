@@ -12,6 +12,6 @@ resource "azurerm_storage_account" "storage" {
 # Creates an Azure Storage Container within the specified Storage Account
 resource "azurerm_storage_container" "blob_container" {
   name                  = var.blob_container_name              # Name of the container for blob storage
-  storage_account_name  = azurerm_storage_account.storage.name # Links the container to the created storage account
+  storage_account_name  = azurerm_storage_account.app_storage.name # Links the container to the created storage account
   container_access_type = "private"                            # Restricts access to the container to the account owner only
 }

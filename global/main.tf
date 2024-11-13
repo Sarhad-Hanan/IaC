@@ -113,6 +113,7 @@ module "web_app" {
   webapp_service_plan_name = "webapp-${var.environment}-${random_string.suffix.result}"
   sku_name                 = local.sku_name_service_plan
   tags                     = local.tags
+  web_app_name = "${var.environment}-webapp-${random_string.suffix.result}"
 
 }
 

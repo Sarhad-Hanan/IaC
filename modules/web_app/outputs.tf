@@ -9,5 +9,5 @@ output "website_service_plan_id" {
 # Output variable to expose the default hostname of the web app created by this module.
 output "webapp_url" {
   description = "URL of the Web App"
-  value       = azurerm_linux_web_app.web_app.default_hostname
+  value       = azurerm_linux_web_app.webapp.default_hostname
 }

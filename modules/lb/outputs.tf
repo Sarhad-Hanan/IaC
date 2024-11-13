@@ -7,5 +7,5 @@ output "load_balancer_ip" {
 # Outputs the ID of the load balancer
 output "load_balancer_id" {
   description = "ID of the Load Balancer"   # Description for context
-  value       = azurerm_lb.lb.id # The unique identifier for the load balancer resource
+  value       = azurerm_lb.load_balancer.id # The unique identifier for the load balancer resource
 }

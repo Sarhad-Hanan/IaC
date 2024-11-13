@@ -7,5 +7,5 @@ output "sql_server_name" {
 # Output for the name of the SQL Database
 output "sql_database_name" {
   description = "Name of the SQL Database"
-  value       = azurerm_mssql_database.database.name
+  value       = azurerm_mssql_database.sql_database.name
 }

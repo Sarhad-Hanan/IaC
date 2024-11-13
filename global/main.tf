@@ -56,8 +56,8 @@ locals {
 # Creates the main resource group for deploying resources, ensuring the name is unique using the random suffix.
 resource "azurerm_resource_group" "main" {
   name     = "${var.environment}-${var.rgname}-${random_string.suffix.result}" # Combines the base name with the random suffix.
-  location = var.location                                                # The region where the resource group will be created.
-  tags     = var.default_tags                                            # Applies default tags for better management and tracking.
+  location = var.location                                                      # The region where the resource group will be created.
+  tags     = var.default_tags                                                  # Applies default tags for better management and tracking.
 }
 
 
@@ -75,8 +75,8 @@ module "networking" {
 module "app_storage" {
   source              = "../modules/app_storage"
   environment         = var.environment
-  location    = azurerm_resource_group.main.location
-  rgname      = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  rgname              = azurerm_resource_group.main.name
   name                = "storage${random_string.suffix.result}"
   blob_container_name = var.blob_container_name
   tags                = local.tags
@@ -88,7 +88,7 @@ module "keyvault" {
   location           = azurerm_resource_group.main.location
   rgname             = azurerm_resource_group.main.name
   key_vault_name     = "${var.environment}-kv-${random_string.suffix.result}"
-  sa_access_key      = module.storage.storage_account_access_key
+  sa_access_key      = module.app_storage.storage_account_access_key
   sql_admin_login    = random_string.sql_admin_login.result
   sql_admin_password = random_password.sql_admin_password.result
   access_policies = [
@@ -110,24 +110,25 @@ module "web_app" {
   environment              = var.environment
   location                 = azurerm_resource_group.main.location
   resource_group_name      = azurerm_resource_group.main.name
-  webapp_service_plan_name = "webapp-plan-${random_string.suffix.result}"
+  webapp_service_plan_name = "webapp-${var.environment}-${random_string.suffix.result}"
   sku_name                 = local.sku_name_service_plan
   tags                     = local.tags
+
 }
 
 # Deploys the Load Balancer module with relevant environment settings.
 module "lb" {
-  source      = "../modules/lb"
-  environment = var.environment
-  location        = azurerm_resource_group.main.location
-  resource_group_name      = azurerm_resource_group.main.name
-  tags        = local.tags
+  source              = "../modules/lb"
+  environment         = var.environment
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  tags                = local.tags
 }
 
 # Deploys the SQL Database module and uses the admin credentials stored in Key Vault.
 module "database" {
   source                 = "../modules/database"
-  environment            = var.environment  
+  environment            = var.environment
   location               = azurerm_resource_group.main.location
   resource_group_name    = azurerm_resource_group.main.name
   sql_server_name        = "sqlserver-${random_string.suffix.result}"

@@ -19,7 +19,7 @@ output "website_subnet_id" {
 }
 
 output "webapp_url" {
-  value = module.web_app.webapp_url 
+  value = module.web_app.webapp_url
 }
 
 # Outputs the ID of the database subnet within the virtual network.

@@ -2,7 +2,7 @@
 
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription_id # Subscription ID where resources are provisioned
+  subscription_id                 = var.subscription_id # Subscription ID where resources are provisioned
   resource_provider_registrations = "none"
 
 }

@@ -8,7 +8,7 @@ variable "environment" {
 variable "rgname" {
   description = "The name of the resource group"
   type        = string
-  
+
 }
 
 # Specifies the Azure region where resources will be deployed, ensuring consistency across environments.
@@ -16,7 +16,7 @@ variable "location" {
   description = "The Azure region to deploy resources in."
   type        = string
   default     = "westeurope" # Default set to 'westeurope' for consistency across environments.
-  
+
 }
 # Holds the Azure subscription ID required for the deployment, ensuring resources are created in the correct account.
 variable "subscription_id" {

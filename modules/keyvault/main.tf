@@ -8,14 +8,7 @@ resource "azurerm_key_vault" "key_vault" {
   purge_protection_enabled    = var.purge_protection_enabled    # Enables protection against accidental deletion
   sku_name                    = var.sku_name                    # SKU for the Key Vault (e.g., Standard, Premium)
 
-  # Having the firewall enabled is a good practice but this prevents the Key Vault from being accessed by my local address
-  # witch i assume is the case for the reviewer as well so i will comment it out.
-  /*
-  network_acls {
-     bypass         = "AzureServices" # Specifies which traffic can bypass the Key Vault firewall
-     default_action = "Deny"          # Default action for network traffic
-  }
-   */
+
   # Configures access policies based on provided variable input for flexible and dynamic access management.
   dynamic "access_policy" {
     for_each = var.access_policies # Iterate through each access policy provided
@@ -33,8 +26,8 @@ resource "azurerm_key_vault" "key_vault" {
 
 # Creates a Key Vault secret to store the storage account access key securely.
 resource "azurerm_key_vault_secret" "storage_account_key" {
-  name         = "storageaccountkey"          # Name of the secret in the Key Vault
-  value        = var.sa_access_key # Value of the storage account access key to be stored
+  name         = "storageaccountkey"            # Name of the secret in the Key Vault
+  value        = var.sa_access_key              # Value of the storage account access key to be stored
   key_vault_id = azurerm_key_vault.key_vault.id # Reference to the Key Vault ID
   content_type = "storageAccountKey"            # Specifies the content type for the secret
 
@@ -45,7 +38,7 @@ resource "azurerm_key_vault_secret" "storage_account_key" {
 
 # Creates a Key Vault secret to store the SQL admin password securely.
 resource "azurerm_key_vault_secret" "sql_admin_password" {
-  name         = "sqladminloginpassword"     # Name of the secret in the Key Vault
+  name         = "sqladminloginpassword"        # Name of the secret in the Key Vault
   value        = var.sql_admin_password         # Value of the SQL admin password to be stored
   key_vault_id = azurerm_key_vault.key_vault.id # Reference to the Key Vault ID
   content_type = "password"                     # Specifies the content type for the secret
@@ -56,7 +49,7 @@ resource "azurerm_key_vault_secret" "sql_admin_password" {
 
 # Creates a Key Vault secret to store the SQL admin login securely.
 resource "azurerm_key_vault_secret" "sql_admin_login" {
-  name         = "sqladminlogin"              # Name of the secret in the Key Vault
+  name         = "sqladminlogin"                # Name of the secret in the Key Vault
   value        = var.sql_admin_login            # Value of the SQL admin login to be stored
   key_vault_id = azurerm_key_vault.key_vault.id # Reference to the Key Vault ID
 

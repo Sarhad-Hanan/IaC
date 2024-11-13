@@ -1,7 +1,7 @@
 # Outputs the name of the created storage account
 output "storage_account_name" {
   description = "The name of the Azure Storage Account"
-  value       = azurerm_storage_account.storage.name
+  value       = azurerm_storage_account.app_storage.name
 }
 
 # Outputs the name of the created blob container

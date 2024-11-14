@@ -33,3 +33,5 @@ output "key_vault_id" {
   description = "The ID of the Key Vault used for secure storage of secrets."
   value       = module.keyvault.key_vault_id
 }
+
+

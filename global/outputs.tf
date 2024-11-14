@@ -33,5 +33,9 @@ output "key_vault_id" {
   description = "The ID of the Key Vault used for secure storage of secrets."
   value       = module.keyvault.key_vault_id
 }
-
+output "storage_account_access_key" {
+  description = "The primary access key of the Azure Storage Account"
+  value       = azurerm_storage_account.storage.primary_access_key
+  sensitive   = true # Marks this output as sensitive to avoid exposure
+}
 

@@ -18,6 +18,7 @@ output "website_subnet_id" {
   value       = module.networking.webapp_subnet_id
 }
 
+
 output "webapp_url" {
   value = module.web_app.webapp_url
 }

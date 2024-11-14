@@ -27,21 +27,11 @@ resource "azurerm_key_vault" "key_vault" {
 # Creates a Key Vault secret to store the storage account access key securely.
 resource "azurerm_key_vault_secret" "storage_account_key" {
   name         = "storageaccountkey"            # Name of the secret in the Key Vault
-  value        = var.sa_access_key              # Value of the storage account access key to be stored
-  key_vault_id = azurerm_key_vault.keyvault.id # Reference to the Key Vault ID
+  value        = var.storage_account.storage_account_key             # Value of the storage account access key to be stored
+  key_vault_id = azurerm_key_vault.key_vault.id # Reference to the Key Vault ID
   content_type = "storageAccountKey"            # Specifies the content type for the secret
+  
 
-  lifecycle {
-    prevent_destroy = false # Allows the secret to be destroyed during deletion
-  }
-}
-
-# Creates a Key Vault secret to store the SQL admin password securely.
-resource "azurerm_key_vault_secret" "sql_admin_password" {
-  name         = "sqladminloginpassword"        # Name of the secret in the Key Vault
-  value        = var.sql_admin_password         # Value of the SQL admin password to be stored
-  key_vault_id = azurerm_key_vault.keyvault.id # Reference to the Key Vault ID
-  content_type = "password"                     # Specifies the content type for the secret
   lifecycle {
     prevent_destroy = false # Allows the secret to be destroyed during deletion
   }
@@ -51,9 +41,21 @@ resource "azurerm_key_vault_secret" "sql_admin_password" {
 resource "azurerm_key_vault_secret" "sql_admin_login" {
   name         = "sqladminlogin"                # Name of the secret in the Key Vault
   value        = var.sql_admin_login            # Value of the SQL admin login to be stored
-  key_vault_id = azurerm_key_vault.keyvault.id # Reference to the Key Vault ID
+  key_vault_id = azurerm_key_vault.key_vault.id # Reference to the Key Vault ID
 
   content_type = "username" # Specifies the content type for the secret
+  lifecycle {
+    prevent_destroy = false # Allows the secret to be destroyed during deletion
+  }
+}
+
+
+# Creates a Key Vault secret to store the SQL admin password securely.
+resource "azurerm_key_vault_secret" "sql_admin_password" {
+  name         = "sqladminloginpassword"        # Name of the secret in the Key Vault
+  value        = var.sql_admin_password         # Value of the SQL admin password to be stored
+  key_vault_id = azurerm_key_vault.key_vault.id # Reference to the Key Vault ID
+  content_type = "password"                     # Specifies the content type for the secret
   lifecycle {
     prevent_destroy = false # Allows the secret to be destroyed during deletion
   }

@@ -88,7 +88,7 @@ module "keyvault" {
   location           = azurerm_resource_group.main.location
   rgname             = azurerm_resource_group.main.name
   key_vault_name     = "${var.environment}-kv-${random_string.suffix.result}"
-  sa_access_key      = module.app_storage.storage_account_access_key
+  storage_account_access_key = module.app_storage.storage_account_access_key
   sql_admin_login    = random_string.sql_admin_login.result
   sql_admin_password = random_password.sql_admin_password.result
   access_policies = [
@@ -104,6 +104,7 @@ module "keyvault" {
   tags      = local.tags
 }
 
+
 # Deploys the App Service Plan module with environment-specific SKU.
 module "web_app" {
   source                   = "../modules/web_app"
@@ -113,6 +114,7 @@ module "web_app" {
   webapp_service_plan_name = "webapp-${var.environment}-${random_string.suffix.result}"
   sku_name                 = local.sku_name_service_plan
   tags                     = local.tags
+  web_app_name = "${var.environment}-webapp-${random_string.suffix.result}"
 
 }
 

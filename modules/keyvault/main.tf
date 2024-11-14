@@ -25,9 +25,9 @@ resource "azurerm_key_vault" "key_vault" {
 }
 
 # Creates a Key Vault secret to store the storage account access key securely.
-resource "azurerm_key_vault_secret" "storage_account_key" {
+resource "azurerm_key_vault_secret" "storage_account_access_key" {
   name         = "storageaccountkey"            # Name of the secret in the Key Vault
-  value        = var.storage_account.storage_account_key             # Value of the storage account access key to be stored
+  value        = var.storage_account.storage_account_access_key             # Value of the storage account access key to be stored
   key_vault_id = azurerm_key_vault.key_vault.id # Reference to the Key Vault ID
   content_type = "storageAccountKey"            # Specifies the content type for the secret
   

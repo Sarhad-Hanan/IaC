@@ -56,7 +56,7 @@ variable "access_policies" {
 }
 
 # Variable for the storage account access key (sensitive)
-variable "sa_access_key" {
+variable "storage_account_access_key" {
   description = "The access key for the Azure Storage Account (sensitive)"
   type        = string
   sensitive   = true
